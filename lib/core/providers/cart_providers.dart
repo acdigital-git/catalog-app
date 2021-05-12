@@ -1,9 +1,27 @@
 import 'package:catalog_app/core/models/product.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final cartListKey = Provider<GlobalKey<AnimatedListState>>(
+    (ref) => GlobalKey<AnimatedListState>());
 
 final cartNotifier = StateNotifierProvider<CartNotifier, List<Product>>(
   (ref) => CartNotifier(),
 );
+
+final cartTotal = Provider<int>((ref) {
+  final cart = ref.watch(cartNotifier);
+  var total = 0;
+  for (var product in cart) {
+    total += product.price;
+  }
+  return total;
+});
+
+final cartItemCount = Provider<int>((ref) {
+  final itemCount = ref.watch(cartNotifier).length;
+  return itemCount;
+});
 
 final isSavedProduct = Provider.family<bool, Product>((ref, product) {
   final cart = ref.watch(cartNotifier);

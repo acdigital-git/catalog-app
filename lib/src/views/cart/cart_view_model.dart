@@ -1,6 +1,7 @@
 import 'package:catalog_app/core/providers/cart_providers.dart';
 import 'package:catalog_app/src/views/cart/components/cart_empty.dart';
 import 'package:catalog_app/src/views/cart/components/cart_listview.dart';
+import 'package:catalog_app/src/views/cart/components/cart_total.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,6 +18,9 @@ class CartViewModel extends HookWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(_title),
+          actions: [
+            CartTotal(),
+          ],
         ),
         body: Container(
           width: double.infinity,

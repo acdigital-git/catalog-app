@@ -1,5 +1,6 @@
 import 'package:catalog_app/core/models/product.dart';
 import 'package:catalog_app/core/providers/cart_providers.dart';
+import 'package:catalog_app/src/constants/app_globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,7 +16,7 @@ class ProductsAnimatedIcon extends HookWidget {
   Widget build(BuildContext context) {
     final _isSaved = useProvider(isSavedProduct(product));
     final _controller = useAnimationController(
-      duration: const Duration(milliseconds: 400),
+      duration: AppGlobals.iconAnimDuration,
       initialValue: _isSaved ? 1 : 0,
     );
 
@@ -30,18 +31,9 @@ class ProductsAnimatedIcon extends HookWidget {
             _controller.reverse();
         }
       },
-      child: IconButton(
-        onPressed: () {
-          if (_controller.isDismissed) {
-            context.read(cartNotifier.notifier).add(product);
-          } else if (_controller.isCompleted) {
-            context.read(cartNotifier.notifier).remove(product);
-          }
-        },
-        icon: AnimatedIcon(
-          icon: AnimatedIcons.add_event,
-          progress: _controller,
-        ),
+      child: AnimatedIcon(
+        icon: AnimatedIcons.add_event,
+        progress: _controller,
       ),
     );
   }

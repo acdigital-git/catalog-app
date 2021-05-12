@@ -10,6 +10,7 @@ class CartListView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _products = useProvider(cartNotifier);
+
     return ListView.separated(
       padding: const EdgeInsets.all(16.0),
       itemCount: _products.length,
@@ -31,8 +32,9 @@ class CartListView extends HookWidget {
           ),
           trailing: IconButton(
             icon: Icon(Icons.clear_rounded),
-            onPressed: () =>
-                context.read(cartNotifier.notifier).remove(_products[index]),
+            onPressed: () {
+              context.read(cartNotifier.notifier).remove(_products[index]);
+            },
           ),
         ),
       ),
