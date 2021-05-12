@@ -18,7 +18,10 @@ class CartViewModel extends HookWidget {
         appBar: AppBar(
           title: Text(_title),
         ),
-        body: _emptyCart ? CartEmpty() : CartListView(),
+        body: Container(
+          width: double.infinity,
+          child: _emptyCart ? CartEmpty() : CartListView(),
+        ),
       ),
     );
   }

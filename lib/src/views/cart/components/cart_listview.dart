@@ -1,4 +1,5 @@
 import 'package:catalog_app/core/providers/cart_providers.dart';
+import 'package:catalog_app/src/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,7 +16,7 @@ class CartListView extends HookWidget {
       itemBuilder: (context, index) => Material(
         borderRadius: BorderRadius.circular(6.0),
         clipBehavior: Clip.antiAlias,
-        color: Colors.grey.shade800,
+        color: AppStyles.mediumGrey,
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: _products[index].color,
@@ -31,7 +32,7 @@ class CartListView extends HookWidget {
           trailing: IconButton(
             icon: Icon(Icons.clear_rounded),
             onPressed: () =>
-                context.read(cartNotifier.notifier).remove(_products[index].id),
+                context.read(cartNotifier.notifier).remove(_products[index]),
           ),
         ),
       ),

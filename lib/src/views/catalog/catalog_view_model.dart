@@ -21,7 +21,10 @@ class CatalogViewModel extends StatelessWidget {
             )
           ],
         ),
-        body: ProductsListView(),
+        body: Container(
+          width: double.infinity,
+          child: ProductsListView(),
+        ),
       ),
     );
   }

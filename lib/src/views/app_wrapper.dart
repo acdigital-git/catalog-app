@@ -17,7 +17,7 @@ class AppWrapper extends StatelessWidget {
             CatalogViewModel(title: AppGlobals.catalogTitle),
         AppRoutes.cart: (context) => CartViewModel(title: AppGlobals.cartTitle),
       },
-      initialRoute: '/',
+      initialRoute: AppRoutes.catalog,
     );
   }
 }

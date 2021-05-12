@@ -5,6 +5,11 @@ final cartNotifier = StateNotifierProvider<CartNotifier, List<Product>>(
   (ref) => CartNotifier(),
 );
 
+final isSavedProduct = Provider.family<bool, Product>((ref, product) {
+  final cart = ref.watch(cartNotifier);
+  return cart.contains(product);
+});
+
 class CartNotifier extends StateNotifier<List<Product>> {
   CartNotifier([List<Product>? items]) : super(items ?? []);
 
@@ -13,8 +18,8 @@ class CartNotifier extends StateNotifier<List<Product>> {
         newProduct,
       ];
 
-  void remove(String productId) {
-    state.removeWhere((product) => product.id == productId);
+  void remove(Product product) {
+    state.remove(product);
     state = [
       ...state,
     ];

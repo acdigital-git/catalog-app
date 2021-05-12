@@ -4,8 +4,8 @@ import 'package:catalog_app/core/models/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final fakeCatalogApi = Provider<List<Product>>(
-  (ref) {
+final fakeCatalogApi = FutureProvider.autoDispose<List<Product>>(
+  (ref) async {
     final products = <Product>[];
     for (var i = 0; i < 30; i++) {
       final price = Random().nextInt(80) + 20;
@@ -19,6 +19,7 @@ final fakeCatalogApi = Provider<List<Product>>(
         ),
       );
     }
+    await Future.delayed(const Duration(milliseconds: 1500));
     return products;
   },
 );
