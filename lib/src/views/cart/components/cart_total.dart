@@ -22,8 +22,8 @@ class CartTotal extends HookWidget {
         child: Text(
           'total :  $_totalAnimated \$',
           style: const TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

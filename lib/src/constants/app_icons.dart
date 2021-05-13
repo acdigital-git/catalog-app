@@ -9,4 +9,5 @@ class AppIcons {
   // ICONS
   static const IconData cart = Icons.shopping_bag_rounded;
   static const IconData shop = Icons.store_rounded;
+  static const IconData pay = Icons.credit_card;
 }

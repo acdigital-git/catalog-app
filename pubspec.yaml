@@ -34,6 +34,7 @@ dependencies:
   uuid: ^3.0.4
   animated_icon_button: ^1.0.0
   implicitly_animated_list: ^2.1.0
+  english_words: ^4.0.0
 
 dev_dependencies:
   flutter_test:

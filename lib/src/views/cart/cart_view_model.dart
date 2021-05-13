@@ -1,4 +1,6 @@
 import 'package:catalog_app/core/providers/cart_providers.dart';
+import 'package:catalog_app/src/constants/app_icons.dart';
+import 'package:catalog_app/src/constants/app_styles.dart';
 import 'package:catalog_app/src/views/cart/components/cart_animated_list.dart';
 import 'package:catalog_app/src/views/cart/components/cart_empty.dart';
 import 'package:catalog_app/src/views/cart/components/cart_total.dart';
@@ -26,6 +28,29 @@ class CartViewModel extends HookWidget {
           width: double.infinity,
           child: _emptyCart ? CartEmpty() : CartAnimatedList(),
         ),
+        floatingActionButton: _emptyCart
+            ? null
+            : FloatingActionButton.extended(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6.0),
+                  side: BorderSide(
+                    color: AppStyles.lightGrey,
+                    width: 2.0,
+                  ),
+                ),
+                backgroundColor: Colors.grey.shade900,
+                onPressed: () {},
+                label: Text(
+                  'Pay Now',
+                  style: TextStyle(
+                    color: AppStyles.lightGrey,
+                  ),
+                ),
+                icon: Icon(
+                  AppIcons.pay,
+                  color: AppStyles.lightGrey,
+                ),
+              ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:catalog_app/src/constants/app_icons.dart';
+import 'package:catalog_app/src/views/catalog/components/products_filters_button.dart';
 import 'package:catalog_app/src/views/catalog/components/products_listview.dart';
 import 'package:catalog_app/src/views/catalog/components/shopping_bag.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class CatalogViewModel extends StatelessWidget {
           title: Text(_title),
           actions: [
             ShoppingBag(),
+            ProductsFiltersBtn(),
           ],
         ),
         body: Container(
