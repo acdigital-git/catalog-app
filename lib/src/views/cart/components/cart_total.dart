@@ -12,8 +12,9 @@ class CartTotal extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _total = useProvider(cartTotal);
-    final _totalAnimated =
+    final int _total = useProvider(cartTotal);
+    // CUSTOM HOOK :: animates into a tween and consumes it with useAnimation()
+    final int _totalAnimated =
         useAnimatedInt(counter: _total, duration: AppGlobals.iconAnimDuration);
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),

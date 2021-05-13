@@ -1,79 +1,42 @@
 import 'package:catalog_app/core/models/product.dart';
 import 'package:catalog_app/core/providers/cart_providers.dart';
-import 'package:catalog_app/src/constants/app_styles.dart';
+import 'package:catalog_app/src/constants/app_globals.dart';
+import 'package:catalog_app/src/shared/components/product_listtile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:implicitly_animated_list/implicitly_animated_list.dart';
 
 class CartAnimatedList extends HookWidget {
-  CartAnimatedList({Key? key}) : super(key: key);
-
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  const CartAnimatedList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _products = useProvider(cartNotifier);
+    var _index = 0;
 
-    return AnimatedList(
-      key: _listKey,
-      padding: const EdgeInsets.all(16),
-      initialItemCount: _products.length,
-      itemBuilder: (context, index, animation) {
-        final _hasSeparator = index < (_products.length - 1);
+    return ImplicitlyAnimatedList(
+      padding: const EdgeInsets.all(16.0),
+      itemData: _products,
+      deleteDuration: AppGlobals.iconAnimDuration,
+      itemBuilder: (context, Product product) {
+        final _isLastItem = _index++ == _products.length;
         return Padding(
-          padding: _hasSeparator
-              ? const EdgeInsets.only(bottom: 16.0)
-              : const EdgeInsets.all(0),
-          child: CartListTile(
-            product: _products[index],
-            index: index,
-            animation: animation,
+          padding: _isLastItem
+              ? const EdgeInsets.all(0)
+              : const EdgeInsets.only(bottom: 16.0),
+          child: buildProductListTile(
+            product: product,
+            trailing: IconButton(
+              icon: Icon(Icons.clear_rounded),
+              splashRadius: 24.0,
+              onPressed: () {
+                context.read(cartNotifier.notifier).remove(product);
+              },
+            ),
           ),
         );
       },
-    );
-  }
-}
-
-class CartListTile extends StatelessWidget {
-  const CartListTile({
-    Key? key,
-    required this.product,
-    required this.index,
-    required this.animation,
-  }) : super(key: key);
-  final Animation<double> animation;
-  final int index;
-  final Product product;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizeTransition(
-      sizeFactor: animation,
-      child: Material(
-        borderRadius: BorderRadius.circular(6.0),
-        clipBehavior: Clip.antiAlias,
-        color: AppStyles.mediumGrey,
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: product.color,
-          ),
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: Text(product.label),
-          ),
-          subtitle: Text(
-            product.price.toString() + ' \$',
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          trailing: IconButton(
-            icon: Icon(Icons.clear_rounded),
-            onPressed: () {
-              context.read(cartNotifier.notifier).remove(product);
-            },
-          ),
-        ),
-      ),
     );
   }
 }

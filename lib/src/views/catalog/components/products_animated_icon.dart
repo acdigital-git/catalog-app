@@ -1,6 +1,8 @@
+import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:catalog_app/core/models/product.dart';
 import 'package:catalog_app/core/providers/cart_providers.dart';
 import 'package:catalog_app/src/constants/app_globals.dart';
+import 'package:catalog_app/src/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,9 +33,32 @@ class ProductsAnimatedIcon extends HookWidget {
             _controller.reverse();
         }
       },
-      child: AnimatedIcon(
-        icon: AnimatedIcons.add_event,
-        progress: _controller,
+      child: Container(
+        //color: Colors.white,
+        child: AnimatedIconButton(
+          animationController: _controller,
+          onPressed: () => _isSaved
+              ? context.read(cartNotifier.notifier).remove(product)
+              : context.read(cartNotifier.notifier).add(product),
+          size: 24.0,
+          splashRadius: 24.0,
+          icons: [
+            AnimatedIconItem(
+              icon: Icon(
+                Icons.add_circle_rounded,
+                color: AppStyles.lightGrey,
+              ),
+              tooltip: 'Add ${product.label} to shopping cart',
+            ),
+            AnimatedIconItem(
+              icon: Icon(
+                Icons.close,
+                color: AppStyles.lightGrey,
+              ),
+              tooltip: 'Remove ${product.label} from shopping cart',
+            ),
+          ],
+        ),
       ),
     );
   }
